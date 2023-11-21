@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Главная - просмотр всех сотрудников{% endblock %}
+{% block content %}
+<h1>Просмотр всех сотрудников</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Фамилия</th>
+        <th>Должность</th>
+        <th>Дата приема на работу</th>
+        <th>Действие</th>
+        <th>Удалить</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for employee in context %}
+    <tr>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.surname }}</td>
+        <td>{{ employee.last_name }}</td>
+        <td>{{ employee.position }}</td>
+        <td>{{ employee.date_except }}</td>
+        <td><a href="{% url 'edit_employee' employee_id=employee.id %}">Редактировать</a></td>
+        <td>
+            <form method="post" action="{% url 'delete_employee' employee_id=employee.id %}">
+                {% csrf_token %}
+                <input type="submit" value="Удалить">
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'add_employee' %}">Добавить сотрудника</a>
+<div>
+    <h1>Каталог должностей</h1>
+
+    <a href="{% url 'positions_list' %}">Добавить сотрудника</a>
+</div>
+{% endblock %}

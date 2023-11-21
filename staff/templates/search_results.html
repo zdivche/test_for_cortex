@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Результаты поиска{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>Результаты поиска</h1>
+
+    <div class="mt-4">
+      <h2>Сотрудники:</h2>
+      <ul class="list-group">
+        {% for employee in employees %}
+          <li class="list-group-item">{{ employee.name }} {{ employee.surname }} {{ employee.last_name }} - {{ employee.position }}</li>
+        {% empty %}
+          <li class="list-group-item text-muted">Ничего не найдено</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="mt-4">
+      <h2>Должности:</h2>
+      <ul class="list-group">
+        {% for position in positions %}
+          <li class="list-group-item">{{ position.title }}</li>
+        {% empty %}
+          <li class="list-group-item text-muted">Ничего не найдено</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <p class="mt-4">Ваш запрос: "{{ query }}"</p>
+  </div>
+{% endblock %}
